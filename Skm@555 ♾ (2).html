@@ -1,0 +1,961 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Skm@555 ♾️</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Chakra+Petch:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one long paper sheet. Big live clock opens the page, then showcase grid, order form beside a price list, contact strip. */
+:root {
+  --paper: #070913;
+  --paper-2: #0E1224;
+  --ink: #E6F6FF;
+  --ink-soft: #8E9CC4;
+  --line: #243059;
+  --pen: #19E3FF;
+  --pen-ink: #021018;
+  --mark: #E9FF4D;
+  --ok: #3DFFA2;
+  --c2: #FF8A1F; --c2t: #FFA24D;
+  --c3: #B8FF3A; --c3t: #C6FF5E;
+  --c4: #2BFFB4; --c4t: #5CFFCA;
+  --buy: #FF8A1F; --buy-ink: #1A0B00;
+  color-scheme: dark;
+  --font-display: "Orbitron", "Eurostile", "Arial Black", sans-serif;
+  --font-body: "Chakra Petch", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+/* single deliberate look: neon dark, same in every viewer theme */
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.55;
+  padding-block: 20px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1040px; margin: 0 auto; display: flex; flex-direction: column; gap: 56px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; text-wrap: balance; margin: 0; letter-spacing: .01em; }
+h2 { font-size: clamp(30px, 6vw, 42px); line-height: 1.05; }
+h3 { font-size: 24px; }
+p { margin: 0; }
+a { color: var(--pen); }
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.label { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); }
+:focus-visible { outline: 2px solid var(--pen); outline-offset: 2px; }
+
+/* top bar */
+.bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; }
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 28px; }
+.brand svg { width: 38px; height: 20px; }
+nav { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 14px; }
+nav a { color: var(--ink); text-decoration: none; border-bottom: 1.5px solid var(--line); padding-bottom: 1px; }
+nav a:hover { border-color: var(--pen); }
+
+/* hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 32px; align-items: end; }
+.clock-face { display: flex; flex-direction: column; gap: 6px; }
+#clock { font-family: var(--font-mono); font-weight: 500; font-size: clamp(48px, 12vw, 104px); line-height: 1; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+#clock .sec { color: var(--pen); }
+#date { font-size: 18px; }
+#sessionLine { display: inline; background: linear-gradient(transparent 58%, var(--mark) 58%, var(--mark) 92%, transparent 92%); color: var(--ink); width: fit-content; padding: 0 4px; }
+.timer { border: 1.5px solid var(--ink); padding: 18px; display: flex; flex-direction: column; gap: 12px; background: var(--paper-2); }
+#timerOut { font-family: var(--font-mono); font-size: 40px; font-variant-numeric: tabular-nums; line-height: 1; }
+.btnrow { display: flex; flex-wrap: wrap; gap: 8px; }
+button, .btn {
+  font: inherit; font-weight: 500; cursor: pointer; padding: 10px 16px; min-height: 42px;
+  border: 1.5px solid var(--ink); background: transparent; color: var(--ink); text-decoration: none;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+}
+button:hover, .btn:hover { background: var(--paper); }
+button.primary, .btn.primary { background: var(--pen); border-color: var(--pen); color: var(--pen-ink); }
+button.primary:hover, .btn.primary:hover { filter: brightness(1.08); }
+button.small { min-height: 34px; padding: 5px 12px; font-size: 14px; }
+.sub { font-size: 14px; color: var(--ink-soft); }
+
+/* showcase */
+.head { display: flex; flex-direction: column; gap: 8px; max-width: 60ch; margin-bottom: 20px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+.piece { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.frame { aspect-ratio: 1 / 1; max-width: 100%; border: 1.5px solid var(--ink); background: var(--paper-2); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.frame svg { width: 78%; height: 78%; color: var(--ink); fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.meta { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.meta strong { font-weight: 600; overflow-wrap: anywhere; }
+.pill { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; padding: 2px 8px; border: 1.2px solid currentColor; white-space: nowrap; }
+.pill.ok { color: var(--ok); }
+.pill.off { color: var(--ink-soft); }
+.pill.sample { color: var(--pen); }
+.empty-note { border: 1.5px dashed var(--line); padding: 14px 16px; margin-bottom: 20px; font-size: 14px; color: var(--ink-soft); }
+
+/* shop */
+.shop { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 32px; align-items: start; }
+.prices { display: flex; flex-direction: column; }
+.prices li { list-style: none; display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.prices { margin: 0; padding: 0; }
+.prices .nm { font-weight: 600; }
+form { display: flex; flex-direction: column; gap: 14px; border: 1.5px solid var(--ink); padding: 20px; background: var(--paper-2); min-width: 0; }
+.field { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.field label { font-size: 13px; font-weight: 600; }
+input, select, textarea {
+  font: inherit; color: var(--ink); background: var(--paper); border: 1.5px solid var(--line); padding: 9px 11px; min-height: 42px; width: 100%; min-width: 0; border-radius: 0;
+}
+textarea { min-height: 84px; resize: vertical; }
+.two { display: grid; grid-template-columns: minmax(0, 1fr) 96px; gap: 12px; }
+.total { display: flex; justify-content: space-between; align-items: baseline; border-top: 1.5px solid var(--ink); padding-top: 12px; }
+.total .mono { font-size: 28px; }
+#msgBox { display: flex; flex-direction: column; gap: 10px; }
+#msgOut { font-family: var(--font-mono); font-size: 13px; min-height: 150px; }
+.err { color: #B3261E; font-size: 14px; }
+:root[data-theme="dark"] .err { color: #FF8A80; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .err { color: #FF8A80; } }
+
+/* contact */
+.contact { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.card { border: 1.5px solid var(--ink); padding: 18px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.handle { font-family: var(--font-mono); font-size: 18px; overflow-wrap: anywhere; }
+
+/* owner */
+#owner { border: 1.5px dashed var(--pen); padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+.ownlist { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; }
+.ownlist li { list-style: none; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; border-bottom: 1px solid var(--line); padding: 8px 0; }
+
+/* supplies */
+.sgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
+.sup { border: 1.5px solid var(--ink); display: flex; flex-direction: column; min-width: 0; background: var(--paper-2); }
+.sup .simg { aspect-ratio: 4 / 3; max-width: 100%; border-bottom: 1.5px solid var(--ink); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.sup .simg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sup .simg svg { width: 46%; height: 46%; fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.sup .sbody { padding: 14px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.sup .sbody strong { overflow-wrap: anywhere; }
+.sup .sbody .btn { margin-top: auto; }
+.disclose { font-size: 13px; color: var(--ink-soft); border-left: 3px solid var(--mark); padding-left: 10px; margin-top: 14px; }
+.likes { font-family: var(--font-mono); font-size: 12px; color: var(--pen); }
+
+/* motion */
+@keyframes redraw { 0%, 72% { stroke-dashoffset: 0; } 72.01% { stroke-dashoffset: 1; } 100% { stroke-dashoffset: 0; } }
+@keyframes rise { from { transform: translateY(14px); } to { transform: translateY(0); } }
+@keyframes nib { 0%, 100% { transform: translateX(0) rotate(-6deg); } 50% { transform: translateX(10px) rotate(4deg); } }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .45; } }
+.frame svg path, .frame svg circle { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.piece.sample .frame svg path, .piece.sample .frame svg circle { animation: redraw 9s ease-in-out infinite; }
+.piece.sample:nth-child(2) .frame svg * { animation-delay: -2s; }
+.piece.sample:nth-child(3) .frame svg * { animation-delay: -4s; }
+.piece.sample:nth-child(4) .frame svg * { animation-delay: -6s; }
+.piece, .sup { animation: rise .6s cubic-bezier(.2,.7,.2,1) both; animation-delay: calc(var(--i, 0) * 70ms); }
+.piece .frame, .sup { transition: transform .25s ease, box-shadow .25s ease; }
+.piece:hover .frame { transform: translate(-3px, -3px); box-shadow: 5px 5px 0 var(--pen); }
+.piece .frame img { transition: transform .5s ease; }
+.piece:hover .frame img { transform: scale(1.05); }
+.sup:hover { transform: translateY(-3px); box-shadow: 4px 4px 0 var(--pen); }
+.brand svg { animation: nib 3.6s ease-in-out infinite; }
+#sessionLine { animation: pulse 3s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .piece, .sup, .brand svg, #sessionLine, .piece.sample .frame svg path, .piece.sample .frame svg circle { animation: none !important; }
+  .piece .frame, .sup, .piece .frame img { transition: none; }
+}
+
+footer { border-top: 1.5px solid var(--ink); padding-top: 14px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-size: 14px; color: var(--ink-soft); }
+
+@media (max-width: 760px) {
+  .hero, .shop { grid-template-columns: minmax(0, 1fr); }
+  .wrap { gap: 44px; }
+}
+
+/* ===== art theme: sketchbook ===== */
+:root { --wob: 255px 16px 225px 16px / 16px 225px 16px 255px; --wob-s: 14px 4px 12px 5px / 5px 12px 4px 14px; --tape: #16213B; }
+.wrap { position: relative; z-index: 1; }
+body::before {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .08;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .1 0 0 0 0 .13 0 0 0 0 .25 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+button, .btn { border-radius: var(--wob-s); box-shadow: 2px 3px 0 var(--ink); }
+button:active, .btn:active { transform: translate(2px, 3px); box-shadow: none; }
+button.small, .btn.small { box-shadow: 1px 2px 0 var(--ink); }
+.timer { border-radius: var(--wob); box-shadow: 6px 7px 0 var(--ink); rotate: 1deg; }
+form, .card, #owner, .empty-note { border-radius: var(--wob); }
+form { box-shadow: 6px 7px 0 var(--line); }
+.card { box-shadow: 5px 6px 0 var(--line); }
+.head h2 { text-decoration: underline wavy var(--pen); text-decoration-thickness: 2px; text-underline-offset: 7px; text-decoration-skip-ink: none; }
+.label { color: var(--pen); }
+.hero { position: relative; }
+.hero::before {
+  content: ""; position: absolute; inset: -30px 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(55% 70% at 88% 20%, color-mix(in srgb, var(--pen) 18%, transparent), transparent 70%),
+    radial-gradient(40% 55% at 8% 95%, color-mix(in srgb, var(--mark) 40%, transparent), transparent 70%);
+}
+.scrib { width: min(100%, 420px); height: auto; fill: none; stroke: var(--pen); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1; animation: redraw 8s ease-in-out infinite; }
+.wrap > section + section::before {
+  content: ""; display: block; height: 14px; margin-bottom: 34px; background: var(--line);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='14'%3E%3Cpath d='M0 7Q15 0 30 7T60 7' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='14'%3E%3Cpath d='M0 7Q15 0 30 7T60 7' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x;
+}
+
+/* showcase: taped prints with price stickers */
+.grid { gap: 30px 26px; padding-top: 10px; }
+.piece {
+  position: relative; background: var(--paper); border: 1.5px solid var(--ink); padding: 12px 12px 14px; gap: 12px;
+  box-shadow: 4px 6px 0 var(--line); rotate: -1.3deg; translate: 0 0;
+  transition: rotate .25s ease, translate .25s ease, box-shadow .25s ease;
+}
+.piece:nth-child(even) { rotate: 1.1deg; }
+.piece:nth-child(3n) { rotate: -.4deg; }
+.piece:hover { rotate: 0deg; translate: 0 -5px; box-shadow: 6px 10px 0 var(--pen); }
+.piece::before {
+  content: ""; position: absolute; top: -11px; left: 50%; width: 88px; height: 22px; translate: -50% 0; rotate: -3deg; z-index: 2;
+  background: color-mix(in srgb, var(--mark) 75%, transparent); box-shadow: 0 1px 2px rgba(0,0,0,.18);
+}
+.piece:nth-child(even)::before { rotate: 3deg; }
+.piece:hover .frame { transform: none; box-shadow: none; }
+.piece .frame { border: 1px solid var(--line); }
+.piece .meta strong { font-family: var(--font-display); font-weight: 400; font-size: 22px; line-height: 1.1; }
+.fwrap { position: relative; }
+.tag {
+  position: absolute; right: -10px; bottom: -12px; z-index: 3; rotate: -7deg;
+  background: var(--mark); color: #16213B; border: 1.5px solid #16213B; padding: 3px 13px 4px;
+  border-radius: 52% 42% 56% 44% / 46% 56% 42% 52%; font-family: var(--font-display); font-size: 24px; line-height: 1.1;
+  box-shadow: 2px 3px 0 rgba(22,33,59,.35);
+}
+.stamp {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%; rotate: -14deg; z-index: 3; pointer-events: none;
+  border: 3px solid #C62F26; color: #C62F26; font-family: var(--font-display); font-size: 40px; padding: 0 14px; background: color-mix(in srgb, var(--paper) 55%, transparent); border-radius: 6px;
+}
+.piece .buy { width: 100%; }
+.sup { border-radius: var(--wob); box-shadow: 4px 5px 0 var(--line); overflow: hidden; }
+@media (prefers-reduced-motion: reduce) { .scrib { animation: none !important; } .piece { transition: none; } }
+
+/* ===== colour: paint box ===== */
+.swatches { flex-basis: 100%; display: flex; height: 10px; overflow: hidden; border-radius: 8px 2px 8px 2px; }
+.swatches i { flex: 1; }
+.swatches i:nth-child(1) { background: var(--pen); }
+.swatches i:nth-child(2) { background: var(--c2); }
+.swatches i:nth-child(3) { background: var(--mark); }
+.swatches i:nth-child(4) { background: var(--c4); }
+.swatches i:nth-child(5) { background: var(--ink); }
+.hero::before {
+  background:
+    radial-gradient(45% 60% at 90% 15%, color-mix(in srgb, var(--pen) 22%, transparent), transparent 70%),
+    radial-gradient(35% 50% at 62% 105%, color-mix(in srgb, var(--c2) 22%, transparent), transparent 70%),
+    radial-gradient(35% 50% at 6% 95%, color-mix(in srgb, var(--mark) 45%, transparent), transparent 70%),
+    radial-gradient(30% 40% at 30% -5%, color-mix(in srgb, var(--c4) 20%, transparent), transparent 70%);
+}
+#showcase { --acc: var(--c2); --acc-t: var(--c2t); }
+#order { --acc: var(--c4); --acc-t: var(--c4t); }
+#supplies { --acc: var(--c3); --acc-t: var(--c3t); }
+#contact { --acc: var(--pen); --acc-t: var(--pen); }
+.head h2 { text-decoration-color: var(--acc, var(--pen)); }
+.head .label { color: var(--acc-t, var(--pen)); }
+.timer { box-shadow: 6px 7px 0 var(--pen); }
+form { box-shadow: 6px 7px 0 var(--c4); }
+.card:nth-child(1) { box-shadow: 5px 6px 0 var(--c2); }
+.card:nth-child(2) { box-shadow: 5px 6px 0 var(--c3); }
+.card:nth-child(3) { box-shadow: 5px 6px 0 var(--pen); }
+.sup { box-shadow: 4px 5px 0 var(--c3); }
+.sup:hover { box-shadow: 6px 8px 0 var(--c2); }
+.piece { box-shadow: 4px 6px 0 var(--line); }
+.piece:hover { box-shadow: 6px 10px 0 var(--c2); }
+.piece:nth-child(3n+2)::before { background: color-mix(in srgb, var(--c2) 55%, transparent); }
+.piece:nth-child(3n+3)::before { background: color-mix(in srgb, var(--c4) 55%, transparent); }
+.piece .buy { background: var(--buy); border-color: var(--ink); color: var(--buy-ink); }
+.piece.sample:nth-child(1) .frame svg { color: var(--c2t); }
+.piece.sample:nth-child(2) .frame svg { color: var(--pen); }
+.piece.sample:nth-child(3) .frame svg { color: var(--c4t); }
+.piece.sample:nth-child(4) .frame svg { color: var(--c3t); }
+.piece.sample:nth-child(1) .frame { background: radial-gradient(circle at 55% 45%, color-mix(in srgb, var(--c2) 26%, transparent), transparent 72%), var(--paper-2); }
+.piece.sample:nth-child(2) .frame { background: radial-gradient(circle at 55% 45%, color-mix(in srgb, var(--pen) 24%, transparent), transparent 72%), var(--paper-2); }
+.piece.sample:nth-child(3) .frame { background: radial-gradient(circle at 55% 45%, color-mix(in srgb, var(--c4) 26%, transparent), transparent 72%), var(--paper-2); }
+.piece.sample:nth-child(4) .frame { background: radial-gradient(circle at 55% 45%, color-mix(in srgb, var(--c3) 30%, transparent), transparent 72%), var(--paper-2); }
+.likes { color: var(--c2t); }
+.disclose { border-left-color: var(--c3); }
+footer { border-top: 3px solid var(--c2); }
+
+/* ===== neon / futuristic ===== */
+:root { --wob: 3px; --wob-s: 2px; --glow: 0 0 18px; }
+@keyframes gridmove { from { background-position: 0 0, 0 0; } to { background-position: 0 44px, 44px 0; } }
+body::before {
+  opacity: 1;
+  background-image: linear-gradient(rgba(25,227,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(25,227,255,.07) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 25%, transparent 85%);
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 25%, transparent 85%);
+  animation: gridmove 6s linear infinite;
+}
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+h2 { font-size: clamp(21px, 5vw, 32px); line-height: 1.2; }
+h3 { font-size: 18px; }
+.brand { font-size: 22px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; text-shadow: 0 0 14px var(--pen); }
+.brand svg { color: var(--pen); filter: drop-shadow(0 0 5px var(--pen)); }
+nav a { text-transform: uppercase; letter-spacing: .1em; font-size: 12px; border-bottom: 1px solid var(--line); }
+nav a:hover { color: var(--pen); border-color: var(--pen); text-shadow: 0 0 10px var(--pen); }
+.head h2 { text-decoration: none; text-shadow: 0 0 20px color-mix(in srgb, var(--acc, var(--pen)) 60%, transparent); }
+.head h2::after { content: ""; display: block; width: 96px; height: 3px; margin-top: 12px; background: var(--acc, var(--pen)); box-shadow: 0 0 14px var(--acc, var(--pen)); }
+.label { letter-spacing: .16em; text-shadow: 0 0 10px color-mix(in srgb, currentColor 50%, transparent); }
+.wrap > section + section::before {
+  -webkit-mask: none; mask: none; height: 1px; margin-bottom: 40px;
+  background: linear-gradient(90deg, transparent, var(--pen), var(--c2), transparent); box-shadow: 0 0 14px var(--pen);
+}
+.swatches { border-radius: 2px; height: 4px; box-shadow: 0 0 16px color-mix(in srgb, var(--pen) 60%, transparent); }
+.swatches i:nth-child(3) { background: var(--c3); }
+.swatches i:nth-child(5) { background: var(--c2); }
+.hero::before {
+  background:
+    radial-gradient(45% 60% at 92% 10%, color-mix(in srgb, var(--pen) 26%, transparent), transparent 70%),
+    radial-gradient(40% 55% at 60% 110%, color-mix(in srgb, var(--c2) 24%, transparent), transparent 70%),
+    radial-gradient(30% 45% at 5% 90%, color-mix(in srgb, var(--c4) 18%, transparent), transparent 70%);
+}
+#clock { text-shadow: 0 0 12px color-mix(in srgb, var(--pen) 80%, transparent), 0 0 38px color-mix(in srgb, var(--pen) 45%, transparent); }
+#clock .sec { color: var(--c2); text-shadow: 0 0 14px var(--c2), 0 0 36px color-mix(in srgb, var(--c2) 55%, transparent); }
+#date { letter-spacing: .08em; text-transform: uppercase; font-size: 15px; color: var(--ink-soft); }
+#sessionLine { background: none; color: var(--c4t); border-left: 3px solid var(--c4); padding: 2px 0 2px 10px; font-family: var(--font-mono); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; text-shadow: 0 0 10px color-mix(in srgb, var(--c4) 60%, transparent); }
+.scrib { stroke: var(--c2); filter: drop-shadow(0 0 5px var(--c2)); }
+
+button, .btn {
+  border-radius: 2px; border: 1.5px solid var(--pen); color: var(--pen); background: transparent;
+  text-transform: uppercase; letter-spacing: .08em; font-size: 13px; font-weight: 600;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--pen) 40%, transparent), inset 0 0 10px color-mix(in srgb, var(--pen) 14%, transparent);
+  transition: background .2s ease, box-shadow .2s ease, color .2s ease;
+}
+button:hover, .btn:hover { background: color-mix(in srgb, var(--pen) 20%, transparent); box-shadow: 0 0 22px color-mix(in srgb, var(--pen) 65%, transparent), inset 0 0 12px color-mix(in srgb, var(--pen) 22%, transparent); }
+button:active, .btn:active { transform: none; filter: brightness(1.25); box-shadow: 0 0 12px var(--pen); }
+button.primary, .btn.primary { background: var(--pen); color: var(--pen-ink); box-shadow: 0 0 20px color-mix(in srgb, var(--pen) 60%, transparent); }
+button.primary:hover, .btn.primary:hover { background: var(--pen); filter: brightness(1.15); box-shadow: 0 0 30px var(--pen); }
+button.small, .btn.small { box-shadow: 0 0 8px color-mix(in srgb, var(--pen) 35%, transparent); }
+
+input, select, textarea { background: color-mix(in srgb, var(--paper) 70%, #000); border: 1px solid var(--line); border-radius: 2px; color: var(--ink); }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--pen); box-shadow: 0 0 0 1px var(--pen), 0 0 16px color-mix(in srgb, var(--pen) 45%, transparent); }
+::placeholder { color: color-mix(in srgb, var(--ink-soft) 70%, transparent); }
+option { background: var(--paper-2); color: var(--ink); }
+
+.timer, form, .card, #owner, .empty-note, .sup {
+  border-radius: 3px; background: color-mix(in srgb, var(--paper-2) 82%, transparent); backdrop-filter: blur(6px);
+  border: 1px solid color-mix(in srgb, var(--pen) 55%, var(--line));
+  box-shadow: 0 0 22px color-mix(in srgb, var(--pen) 16%, transparent), inset 0 0 28px color-mix(in srgb, var(--pen) 6%, transparent);
+}
+.timer { rotate: 0deg; }
+#timerOut { text-shadow: 0 0 14px color-mix(in srgb, var(--c4) 70%, transparent); color: var(--c4t); }
+form { border-color: color-mix(in srgb, var(--c4) 60%, var(--line)); box-shadow: 0 0 24px color-mix(in srgb, var(--c4) 16%, transparent), inset 0 0 28px color-mix(in srgb, var(--c4) 6%, transparent); }
+.card:nth-child(1) { border-color: color-mix(in srgb, var(--c2) 65%, var(--line)); box-shadow: 0 0 22px color-mix(in srgb, var(--c2) 18%, transparent), inset 0 0 26px color-mix(in srgb, var(--c2) 6%, transparent); }
+.card:nth-child(2) { border-color: color-mix(in srgb, var(--c3) 60%, var(--line)); box-shadow: 0 0 22px color-mix(in srgb, var(--c3) 14%, transparent), inset 0 0 26px color-mix(in srgb, var(--c3) 5%, transparent); }
+.card:nth-child(3) { border-color: color-mix(in srgb, var(--pen) 65%, var(--line)); }
+#owner { border-style: dashed; }
+.total { border-top: 1px solid var(--pen); }
+.total .mono { color: var(--c3t); text-shadow: 0 0 14px color-mix(in srgb, var(--c3) 60%, transparent); }
+.prices li { border-bottom: 1px solid var(--line); }
+.prices .mono { color: var(--c3t); }
+.handle { color: var(--ink); text-shadow: 0 0 10px color-mix(in srgb, var(--pen) 50%, transparent); }
+
+.grid { gap: 28px 24px; }
+.piece, .piece:nth-child(even), .piece:nth-child(3n) { rotate: 0deg; }
+.piece {
+  background: color-mix(in srgb, var(--paper-2) 85%, transparent); border: 1px solid var(--line); border-radius: 3px;
+  box-shadow: 0 0 22px color-mix(in srgb, var(--pen) 10%, transparent);
+}
+.piece:hover { translate: 0 -5px; border-color: var(--pen); box-shadow: 0 0 30px color-mix(in srgb, var(--pen) 40%, transparent), inset 0 0 20px color-mix(in srgb, var(--pen) 8%, transparent); }
+.piece::before, .piece:nth-child(even)::before, .piece:nth-child(3n+2)::before, .piece:nth-child(3n+3)::before {
+  content: ""; position: absolute; top: -1px; left: -1px; width: 18px; height: 18px; translate: none; rotate: 0deg;
+  background: none; box-shadow: none; border-top: 2px solid var(--pen); border-left: 2px solid var(--pen); filter: drop-shadow(0 0 4px var(--pen));
+}
+.piece::after {
+  content: ""; position: absolute; right: -1px; bottom: -1px; width: 18px; height: 18px; pointer-events: none;
+  border-bottom: 2px solid var(--c2); border-right: 2px solid var(--c2); filter: drop-shadow(0 0 4px var(--c2));
+}
+.piece .frame { border: 1px solid var(--line); border-radius: 2px; }
+.frame svg { filter: drop-shadow(0 0 5px currentColor); stroke-width: 1.8; }
+.piece .meta strong { font-family: var(--font-display); font-weight: 500; font-size: 15px; letter-spacing: .05em; text-transform: uppercase; }
+.piece .buy { background: var(--buy); color: var(--buy-ink); border-color: var(--buy); box-shadow: 0 0 20px color-mix(in srgb, var(--buy) 55%, transparent); }
+.piece .buy:hover { box-shadow: 0 0 30px var(--buy); }
+.tag {
+  rotate: 0deg; right: 8px; bottom: 8px; border-radius: 2px; background: color-mix(in srgb, var(--paper) 85%, transparent); color: var(--c3t);
+  border: 1px solid var(--c3); font-family: var(--font-mono); font-size: 16px; font-weight: 500; padding: 2px 10px;
+  box-shadow: 0 0 14px color-mix(in srgb, var(--c3) 50%, transparent); text-shadow: 0 0 8px var(--c3);
+}
+.stamp { border-color: #FF4B2E; color: #FF4B2E; border-radius: 2px; font-size: 26px; letter-spacing: .1em; text-shadow: 0 0 12px #FF4B2E; box-shadow: 0 0 16px rgba(255,75,46,.5), inset 0 0 12px rgba(255,75,46,.25); background: color-mix(in srgb, var(--paper) 60%, transparent); }
+.pill { border-radius: 2px; }
+.pill.sample { color: var(--c2t); }
+.likes { color: var(--c2t); text-shadow: 0 0 8px var(--c2); }
+.sup { overflow: hidden; }
+.sup:hover { box-shadow: 0 0 30px color-mix(in srgb, var(--c3) 40%, transparent); border-color: var(--c3); }
+.sup .simg { border-bottom: 1px solid var(--line); }
+.sup .simg svg { stroke: var(--pen); filter: drop-shadow(0 0 5px var(--pen)); }
+.disclose { border-left-color: var(--c3); }
+.err { color: #FF8A6B; }
+footer { border-top: 1px solid var(--pen); box-shadow: 0 -8px 24px -18px var(--pen); }
+a { text-shadow: 0 0 8px color-mix(in srgb, var(--pen) 35%, transparent); }
+.btn, button { text-shadow: none; }
+@media (prefers-reduced-motion: reduce) { body::before { animation: none; } button, .btn { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header class="bar">
+    <div class="brand">
+      <svg viewBox="0 0 38 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M19 10C15 3 8 2 5 6c-3 4 0 9 5 8 4-1 7-4 9-4s5 3 9 4c5 1 8-4 5-8-3-4-10-3-14 4z"/></svg>
+      <span>Skm@555 <span style="font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);display:block;line-height:1.2;margin-top:-2px">by Shubham Maurya</span></span>
+    </div>
+    <nav aria-label="Sections">
+      <a href="#time">Time</a><a href="#showcase">Showcase</a><a href="#order">Order</a><a href="#supplies">Supplies</a><a href="#contact">Contact</a>
+    </nav>
+    <div class="swatches" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  </header>
+
+  <section id="time" class="hero" aria-label="Live time">
+    <div class="clock-face">
+      <span class="label">Studio time · India (IST)</span>
+      <div id="clock" aria-live="off">--:--<span class="sec">:--</span></div>
+      <svg class="scrib" viewBox="0 0 300 14" aria-hidden="true"><path pathLength="1" d="M2 9C60 2 120 12 180 6S270 8 298 4"/></svg>
+      <div id="date">&nbsp;</div>
+      <span id="sessionLine">&nbsp;</span>
+      <div class="sub" id="localLine"></div>
+    </div>
+    <div class="timer">
+      <span class="label">Sketch session timer</span>
+      <div id="timerOut">00:00:00</div>
+      <div class="btnrow">
+        <button id="tStart" class="primary" type="button">Start</button>
+        <button id="tReset" type="button">Reset</button>
+      </div>
+      <div class="sub" id="todayTotal">Today: 0 min sketched</div>
+    </div>
+  </section>
+
+  <section id="showcase">
+    <div class="head">
+      <span class="label">Showcase</span>
+      <h2>Original pen sketches, ready to buy</h2>
+      <p class="sub">Each print is drawn by hand. The price sticker shows what the original costs. Tap Buy this and your order message is filled in for you.</p>
+    </div>
+    <div id="sampleNote" class="empty-note" hidden>The first four are sample linework while the live collection fills up. Finished pieces appear here as soon as they are uploaded.</div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section id="order" class="shop">
+    <div class="prices-col" style="display:flex;flex-direction:column;gap:16px;min-width:0">
+      <div class="head" style="margin:0">
+        <span class="label">Buy</span>
+        <h2>Order a sketch</h2>
+        <p class="sub">Choose a size, write what you want drawn, and send the prepared message on Instagram. Price and timing are confirmed with you there before any work starts.</p>
+      </div>
+      <ul class="prices" id="priceList"></ul>
+    </div>
+    <form id="orderForm" novalidate>
+      <div class="field">
+        <label for="item">What do you want</label>
+        <select id="item"></select>
+      </div>
+      <div class="two">
+        <div class="field">
+          <label for="yourName">Your name</label>
+          <input id="yourName" type="text" maxlength="60" autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="qty">Qty</label>
+          <input id="qty" type="number" min="1" max="20" value="1" inputmode="numeric">
+        </div>
+      </div>
+      <div class="field">
+        <label for="phone">Phone number for the courier</label>
+        <input id="phone" type="tel" inputmode="numeric" maxlength="14" autocomplete="tel" placeholder="10-digit mobile">
+      </div>
+      <div class="field">
+        <label for="addr">Delivery address</label>
+        <textarea id="addr" maxlength="300" autocomplete="street-address" style="min-height:70px" placeholder="House or flat, street, area, city, state"></textarea>
+      </div>
+      <div class="field">
+        <label for="pin">PIN code</label>
+        <input id="pin" type="text" inputmode="numeric" maxlength="6" autocomplete="postal-code" placeholder="6 digits">
+      </div>
+      <div class="field">
+        <label for="notes">Subject, style, quote or deadline</label>
+        <textarea id="notes" maxlength="500" placeholder="e.g. a lotus with the line &quot;keep going&quot;, black pen, needed by Sunday"></textarea>
+      </div>
+      <div class="total"><span class="label">Estimated total</span><span class="mono" id="total">₹0</span></div>
+      <div id="formErr" class="err" role="alert" hidden></div>
+      <button class="primary" type="submit">Prepare my order message</button>
+      <div id="msgBox" hidden>
+        <label class="label" for="msgOut">Your message</label>
+        <textarea id="msgOut" readonly></textarea>
+        <div class="btnrow">
+          <button type="button" id="copyMsg">Copy message</button>
+          <a class="btn primary" id="igSend" href="https://www.instagram.com/s.k.m_5.5.5/" target="_blank" rel="noopener">Open Instagram</a>
+        </div>
+        <p class="sub" id="copyState">Copy the message, then paste it into a direct message on Instagram.</p>
+      </div>
+    </form>
+  </section>
+
+  <section id="supplies">
+    <div class="head">
+      <span class="label">Supplies</span>
+      <h2>What I draw with</h2>
+      <p class="sub">The pens, paper and tools behind the sketches. Tap a product to buy it from the seller.</p>
+    </div>
+    <div id="supEmpty" class="empty-note">Supply picks are being added. Check back soon, or ask on Instagram what pen was used for a sketch.</div>
+    <div class="sgrid" id="sgrid"></div>
+    <p class="disclose">Some links are affiliate links. If you buy through them I may earn a small commission, and your price stays the same.</p>
+  </section>
+
+  <section id="contact">
+    <div class="head">
+      <span class="label">Contact</span>
+      <h2>Say hello, ask for a custom piece</h2>
+      <p class="sub">Replies come fastest on Instagram direct messages.</p>
+    </div>
+    <div class="contact">
+      <div class="card">
+        <span class="label">Instagram · daily pocket journal</span>
+        <div class="handle" id="igHandle">@s.k.m_5.5.5</div>
+        <div class="btnrow">
+          <a class="btn primary" href="https://www.instagram.com/s.k.m_5.5.5/" target="_blank" rel="noopener">Message on Instagram</a>
+          <button type="button" class="small" data-copy="@s.k.m_5.5.5">Copy handle</button>
+        </div>
+      </div>
+      <div class="card">
+        <span class="label">YouTube · art channel</span>
+        <div class="handle">@Artist_skm555</div>
+        <div class="btnrow">
+          <a class="btn" href="https://www.youtube.com/@Artist_skm555" target="_blank" rel="noopener">Watch the channel</a>
+          <button type="button" class="small" data-copy="@Artist_skm555">Copy handle</button>
+        </div>
+      </div>
+      <div class="card" id="track">
+        <span class="label">Track my parcel · Delhivery</span>
+        <div class="field">
+          <label for="awb">Tracking number (AWB)</label>
+          <input id="awb" type="text" maxlength="20" autocomplete="off" placeholder="Sent to you after dispatch">
+        </div>
+        <div id="awbErr" class="err" role="alert" hidden></div>
+        <a class="btn primary" id="awbGo" href="https://www.delhivery.com/" target="_blank" rel="noopener">Track on Delhivery</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="owner" hidden aria-label="Studio owner tools">
+    <div>
+      <span class="label">Studio tools · only you see this</span>
+      <h3>Add a piece to the showcase</h3>
+    </div>
+    <p class="sub" id="upStatus"></p>
+    <form id="addForm" novalidate style="border:none;padding:0;background:transparent">
+      <div class="field"><label for="wTitle">Title (for several photos, leave empty to use file names)</label><input id="wTitle" type="text" maxlength="80"></div>
+      <div class="two" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)">
+        <div class="field"><label for="wPrice">Price in ₹ (leave empty if not for sale)</label><input id="wPrice" type="number" min="0" inputmode="numeric"></div>
+        <div class="field"><label for="wLikes">Instagram likes (most loved show first)</label><input id="wLikes" type="number" min="0" inputmode="numeric"></div>
+        <div class="field"><label for="wStatus">Status</label>
+          <select id="wStatus"><option value="available">Available</option><option value="sold">Sold</option><option value="showcase">Showcase only</option></select>
+        </div>
+      </div>
+      <div class="field"><label for="wFile">Photos of your sketches (pick as many as you like)</label><input id="wFile" type="file" accept="image/*" multiple></div>
+      <div id="addErr" class="err" role="alert" hidden></div>
+      <button class="primary" type="submit" id="addBtn">Add to showcase</button>
+    </form>
+    <div>
+      <h3 style="margin-bottom:6px">Your pieces</h3>
+      <ul class="ownlist" id="ownList"></ul>
+    </div>
+    <hr style="border:none;border-top:1px solid var(--line);width:100%">
+    <div><h3>Add a supply product</h3><p class="sub">Paste your own affiliate link. Only https links are accepted.</p></div>
+    <form id="supForm" novalidate style="border:none;padding:0;background:transparent">
+      <div class="field"><label for="sName">Product name</label><input id="sName" type="text" maxlength="90"></div>
+      <div class="field"><label for="sLink">Affiliate link</label><input id="sLink" type="url" inputmode="url" placeholder="https://"></div>
+      <div class="two" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)">
+        <div class="field"><label for="sPrice">Price in ₹ (optional)</label><input id="sPrice" type="number" min="0" inputmode="numeric"></div>
+        <div class="field"><label for="sFile">Product photo (optional)</label><input id="sFile" type="file" accept="image/*"></div>
+      </div>
+      <div class="field"><label for="sNote">One line on why you use it</label><input id="sNote" type="text" maxlength="140"></div>
+      <div id="supErr" class="err" role="alert" hidden></div>
+      <button class="primary" type="submit" id="supBtn">Add product</button>
+    </form>
+    <ul class="ownlist" id="supOwnList"></ul>
+  </section>
+
+  <footer>
+    <span>Skm@555 ♾️ · hand-drawn by Shubham Maurya, one pen at a time</span>
+    <span class="mono" id="yr"></span>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var TZ = "Asia/Kolkata";
+  var SHOP = [
+    { id: "pocket", name: "Pocket journal page", desc: "Pen sketch with a short quote", price: 149 },
+    { id: "a5", name: "A5 pen sketch", desc: "148 × 210 mm, ink on paper", price: 299 },
+    { id: "a4", name: "A4 pen sketch", desc: "210 × 297 mm, ink on paper", price: 499 },
+    { id: "portrait", name: "Custom portrait, A4", desc: "From your photo, hand inked", price: 799 }
+  ];
+  var SAMPLES = [
+    { title: "Lotus study", svg: '<svg viewBox="0 0 200 200"><path d="M100 150C85 120 85 85 100 60c15 25 15 60 0 90z"/><path d="M100 150C70 140 50 115 52 88c26 7 42 30 48 62z"/><path d="M100 150c30-10 50-35 48-62-26 7-42 30-48 62z"/><path d="M100 150C65 155 35 140 25 112c30-2 60 13 75 38z"/><path d="M100 150c35 5 65-10 75-38-30-2-60 13-75 38z"/><path d="M40 165h120M62 176h76"/></svg>' },
+    { title: "Eye study", svg: '<svg viewBox="0 0 200 200"><path d="M20 100C60 55 140 55 180 100 140 145 60 145 20 100z"/><circle cx="100" cy="100" r="27"/><circle cx="100" cy="100" r="11"/><circle cx="108" cy="92" r="3"/><path d="M45 72l-8-12M72 58l-4-14M100 52V36M128 58l4-14M155 72l8-12"/></svg>' },
+    { title: "Peaks at dusk", svg: '<svg viewBox="0 0 200 200"><path d="M15 150L70 70l30 40 30-50 55 90z"/><circle cx="152" cy="38" r="14"/><path d="M60 100l10 8M78 120l8 6M118 100l6 10M136 124l8 8M15 168h170M40 180h120"/></svg>' },
+    { title: "Ghat steps", svg: '<svg viewBox="0 0 200 200"><path d="M20 164h160M30 150h140M40 136h120M50 122h100"/><path d="M84 122V96c0-28 32-28 32 0v26"/><path d="M100 56V40M96 44h8M92 96h16M100 122v-14"/><path d="M20 180h160"/></svg>' }
+  ];
+
+  var $ = function (id) { return document.getElementById(id); };
+  var money = function (n) { return "₹" + new Intl.NumberFormat("en-IN").format(n); };
+  var store = {
+    get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  };
+
+  /* ---------- live clock ---------- */
+  var timeFmt = new Intl.DateTimeFormat("en-GB", { timeZone: TZ, hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false });
+  var dateFmt = new Intl.DateTimeFormat("en-IN", { timeZone: TZ, weekday: "long", day: "numeric", month: "long", year: "numeric" });
+  var dayKeyFmt = new Intl.DateTimeFormat("en-CA", { timeZone: TZ });
+  var localTz = "";
+  try { localTz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (e) {}
+  var localFmt = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", hour12: false });
+
+  function sessionText(h) {
+    if (h >= 5 && h < 11) return "Morning light. Good time for fine liners.";
+    if (h >= 11 && h < 17) return "Daylight session. Shading weather.";
+    if (h >= 17 && h < 21) return "Evening session. Pen and chai.";
+    return "Night session. Desk lamp on, journal page time.";
+  }
+  function tickClock() {
+    var now = new Date();
+    var parts = timeFmt.format(now).split(":");
+    $("clock").innerHTML = parts[0] + ":" + parts[1] + '<span class="sec">:' + parts[2] + "</span>";
+    $("date").textContent = dateFmt.format(now);
+    $("sessionLine").textContent = sessionText(parseInt(parts[0], 10));
+    if (localTz && localTz !== TZ) {
+      $("localLine").textContent = "Your time: " + localFmt.format(now) + " (" + localTz.replace(/_/g, " ") + ")";
+    }
+  }
+
+  /* ---------- sketch timer ---------- */
+  var timer = { running: false, startedAt: 0, base: 0 };
+  function todayKey() { return "skm555-sketch-" + dayKeyFmt.format(new Date()); }
+  function elapsedMs() { return timer.base + (timer.running ? Date.now() - timer.startedAt : 0); }
+  function two(n) { return (n < 10 ? "0" : "") + n; }
+  function fmtDur(ms) {
+    var s = Math.floor(ms / 1000);
+    return two(Math.floor(s / 3600)) + ":" + two(Math.floor((s % 3600) / 60)) + ":" + two(s % 60);
+  }
+  function renderTimer() {
+    $("timerOut").textContent = fmtDur(elapsedMs());
+    var saved = parseInt(store.get(todayKey()) || "0", 10) || 0;
+    var mins = Math.floor((saved + elapsedMs()) / 60000);
+    $("todayTotal").textContent = "Today: " + mins + " min sketched";
+    $("tStart").textContent = timer.running ? "Pause" : (timer.base > 0 ? "Resume" : "Start");
+  }
+  $("tStart").addEventListener("click", function () {
+    if (timer.running) { timer.base += Date.now() - timer.startedAt; timer.running = false; }
+    else { timer.startedAt = Date.now(); timer.running = true; }
+    renderTimer();
+  });
+  $("tReset").addEventListener("click", function () {
+    var spent = elapsedMs();
+    if (spent > 0) {
+      var saved = parseInt(store.get(todayKey()) || "0", 10) || 0;
+      store.set(todayKey(), String(saved + spent));
+    }
+    timer = { running: false, startedAt: 0, base: 0 };
+    renderTimer();
+  });
+
+  /* ---------- gallery ---------- */
+  var works = [];
+  var canEdit = false;
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function pieceCard(w, i) {
+    var card = el("article", "piece" + (w.sample ? " sample" : ""));
+    card.style.setProperty("--i", String(Math.min(i || 0, 12)));
+    var fr = el("div", "frame");
+    var fwrap = el("div", "fwrap");
+    if (w.svg) {
+      fr.innerHTML = w.svg; fr.setAttribute("role", "img"); fr.setAttribute("aria-label", w.title);
+      fr.querySelectorAll("path,circle").forEach(function (p) { p.setAttribute("pathLength", "1"); });
+    }
+    else if (w.assetId && /^[0-9a-f]{32}$/.test(w.assetId)) {
+      var img = document.createElement("img");
+      img.src = "/_blob/" + w.assetId; img.alt = w.title; img.loading = "lazy";
+      fr.appendChild(img);
+    }
+    fwrap.appendChild(fr);
+    if (!w.sample && Number(w.price) > 0 && w.status !== "showcase") fwrap.appendChild(el("span", "tag", money(Number(w.price))));
+    if (w.status === "sold") fwrap.appendChild(el("span", "stamp", "SOLD"));
+    card.appendChild(fwrap);
+    var meta = el("div", "meta");
+    meta.appendChild(el("strong", "", w.title));
+    var st = w.sample ? ["Sample", "sample"] : w.status === "sold" ? ["Sold", "off"] : w.status === "available" ? ["Available", "ok"] : ["Showcase", "off"];
+    meta.appendChild(el("span", "pill " + st[1], st[0]));
+    card.appendChild(meta);
+    var row = el("div", "meta");
+    var price = Number(w.price), likes = Number(w.likes);
+    var left = el("span", "mono sub", w.sample ? "Order one like it" : (w.status === "sold" ? "Sold, ask for a similar one" : (price > 0 && w.status === "available" ? "Original, 1 of 1" : "Showcase only")));
+    if (likes > 0) { left.appendChild(document.createTextNode("  ")); left.appendChild(el("span", "likes", "♥ " + new Intl.NumberFormat("en-IN").format(likes))); }
+    row.appendChild(left);
+    card.appendChild(row);
+    if (w.sample || w.status === "available" || w.status === "sold") {
+      var b = el("button", "primary buy", w.sample ? "Order one like this" : (w.status === "sold" ? "Ask for a similar one" : "Buy this"));
+      b.type = "button";
+      b.addEventListener("click", function () { startOrder(w); });
+      card.appendChild(b);
+    }
+    return card;
+  }
+  function renderGallery() {
+    var g = $("grid");
+    g.textContent = "";
+    works.forEach(function (w, i) { g.appendChild(pieceCard(w, i)); });
+    var showSamples = works.length === 0;
+    $("sampleNote").hidden = !showSamples;
+    if (showSamples) SAMPLES.forEach(function (s, i) { g.appendChild(pieceCard({ title: s.title, svg: s.svg, sample: true }, i)); });
+  }
+  var sups = [];
+  function safeLink(u) {
+    try { var x = new URL(String(u)); return x.protocol === "https:" ? x : null; } catch (e) { return null; }
+  }
+  var PEN_ICON = '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 38l4-10L34 8l6 6-20 20z"/><path d="M30 12l6 6M10 38l8-2"/></svg>';
+  function renderSupplies() {
+    var g = $("sgrid"); g.textContent = "";
+    var shown = 0;
+    sups.forEach(function (s) {
+      var u = safeLink(s.link);
+      if (!u) return;
+      var c = el("article", "sup"); c.style.setProperty("--i", String(Math.min(shown, 12)));
+      var im = el("div", "simg");
+      if (s.assetId && /^[0-9a-f]{32}$/.test(s.assetId)) {
+        var img = document.createElement("img"); img.src = "/_blob/" + s.assetId; img.alt = s.name; img.loading = "lazy"; im.appendChild(img);
+      } else im.innerHTML = PEN_ICON;
+      c.appendChild(im);
+      var b = el("div", "sbody");
+      b.appendChild(el("strong", "", s.name));
+      if (s.note) b.appendChild(el("p", "sub", s.note));
+      if (Number(s.price) > 0) b.appendChild(el("span", "mono", money(Number(s.price))));
+      var a = el("a", "btn primary", "Buy on " + u.hostname.replace(/^www\./, ""));
+      a.href = u.href; a.target = "_blank"; a.rel = "noopener sponsored";
+      b.appendChild(a); c.appendChild(b); g.appendChild(c); shown++;
+    });
+    $("supEmpty").hidden = shown > 0;
+    $("sgrid").hidden = shown === 0;
+  }
+  function startOrder(w) {
+    var sel = $("item"), n = $("notes");
+    var old = sel.querySelector('option[value="piece"]'); if (old) sel.removeChild(old);
+    pieceItem = null;
+    if (!w.sample && w.status === "available" && Number(w.price) > 0) {
+      pieceItem = { id: "piece", name: "Original: \"" + w.title + "\" (1 of 1)", price: Number(w.price) };
+      var o = el("option", "", pieceItem.name + " — " + money(pieceItem.price)); o.value = "piece";
+      sel.insertBefore(o, sel.firstChild); sel.value = "piece"; $("qty").value = 1;
+    } else {
+      sel.value = "a5";
+      var line = (w.sample || w.status === "sold" ? "Something like \"" : "I'd like \"") + w.title + "\"";
+      if (n.value.indexOf(line) === -1) n.value = line + (n.value ? ". " + n.value : "");
+    }
+    updateTotal();
+    document.getElementById("order").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  /* ---------- shop ---------- */
+  function buildShop() {
+    var sel = $("item"), ul = $("priceList");
+    SHOP.forEach(function (s) {
+      var o = el("option", "", s.name + " — " + money(s.price)); o.value = s.id; sel.appendChild(o);
+      var li = el("li");
+      var left = el("div"); left.appendChild(el("div", "nm", s.name)); left.appendChild(el("div", "sub", s.desc));
+      li.appendChild(left); li.appendChild(el("span", "mono", money(s.price)));
+      ul.appendChild(li);
+    });
+    var o2 = el("option", "", "Something else, quote me"); o2.value = "custom"; sel.appendChild(o2);
+  }
+  var pieceItem = null;
+  function currentItem() { if ($("item").value === "piece") return pieceItem; for (var i = 0; i < SHOP.length; i++) if (SHOP[i].id === $("item").value) return SHOP[i]; return null; }
+  function qtyVal() { var q = parseInt($("qty").value, 10); return q >= 1 && q <= 20 ? q : 1; }
+  function updateTotal() {
+    var it = currentItem();
+    $("total").textContent = it ? money(it.price * qtyVal()) : "To be quoted";
+  }
+  $("item").addEventListener("change", updateTotal);
+  $("qty").addEventListener("input", updateTotal);
+  $("orderForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = $("yourName").value.trim();
+    var err = $("formErr");
+    if (!name) { err.textContent = "Add your name so the message makes sense on the other end."; err.hidden = false; $("yourName").focus(); return; }
+    var phone = $("phone").value.replace(/[\s-]/g, "").replace(/^(\+91|91|0)(?=\d{10}$)/, ""), addr = $("addr").value.trim().replace(/\s*\n\s*/g, ", "), pin = $("pin").value.trim();
+    if (!/^[6-9]\d{9}$/.test(phone)) { err.textContent = "Enter a 10-digit mobile number so the courier can reach you."; err.hidden = false; $("phone").focus(); return; }
+    if (addr.length < 10) { err.textContent = "Add your full delivery address."; err.hidden = false; $("addr").focus(); return; }
+    if (!/^[1-9]\d{5}$/.test(pin)) { err.textContent = "Enter a 6-digit PIN code."; err.hidden = false; $("pin").focus(); return; }
+    err.hidden = true;
+    var it = currentItem(), q = qtyVal(), notes = $("notes").value.trim();
+    var lines = ["Hi Shubham, I'd like to place an order.", ""];
+    lines.push(it ? "Item: " + it.name + " × " + q : "Item: Custom piece, please send a quote");
+    if (it) lines.push("Estimated total: " + money(it.price * q));
+    if (notes) lines.push("Details: " + notes);
+    lines.push("Name: " + name);
+    lines.push("Phone: " + phone);
+    lines.push("Ship to: " + addr + " - " + pin);
+    $("msgOut").value = lines.join("\n");
+    $("msgBox").hidden = false;
+    $("copyState").textContent = "Copy the message, then paste it into a direct message on Instagram.";
+    $("msgOut").scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+
+  /* ---------- parcel tracking ---------- */
+  function syncAwb() {
+    var v = $("awb").value.trim(), ok = /^[A-Za-z0-9]{8,20}$/.test(v);
+    $("awbGo").href = ok ? "https://www.delhivery.com/track/package/" + encodeURIComponent(v) : "https://www.delhivery.com/";
+    return ok;
+  }
+  $("awb").addEventListener("input", function () { $("awbErr").hidden = true; syncAwb(); });
+  $("awbGo").addEventListener("click", function (e) {
+    if (!syncAwb()) {
+      e.preventDefault();
+      $("awbErr").textContent = "Enter the 8 to 20 character tracking number you received.";
+      $("awbErr").hidden = false; $("awb").focus();
+    }
+  });
+
+  /* ---------- copy ---------- */
+  function copyText(text, done) {
+    function fallback() {
+      var t = document.createElement("textarea");
+      t.value = text; t.setAttribute("readonly", ""); t.style.position = "fixed"; t.style.opacity = "0";
+      document.body.appendChild(t); t.select();
+      var ok = false; try { ok = document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(t); done(ok);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, fallback);
+    } else fallback();
+  }
+  $("copyMsg").addEventListener("click", function () {
+    copyText($("msgOut").value, function (ok) {
+      if (!ok) $("msgOut").select();
+      $("copyState").textContent = ok ? "Copied. Paste it into your Instagram message." : "Select the text above and copy it by hand, then paste it into Instagram.";
+    });
+  });
+  document.querySelectorAll("[data-copy]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var old = b.textContent;
+      copyText(b.getAttribute("data-copy"), function (ok) {
+        b.textContent = ok ? "Copied" : "Copy by hand";
+        setTimeout(function () { b.textContent = old; }, 1600);
+      });
+    });
+  });
+
+  /* ---------- owner tools (db + assets) ---------- */
+  var db = null, assets = null, user = null, ownerUnsub = null;
+  function renderOwnerList() {
+    var ul = $("ownList"); ul.textContent = "";
+    if (!works.length) { ul.appendChild(el("li", "sub", "Nothing uploaded yet. Add your first piece above.")); return; }
+    works.forEach(function (w) {
+      var li = el("li");
+      li.appendChild(el("span", "", w.title + (Number(w.price) > 0 ? " · " + money(Number(w.price)) : "")));
+      var r = el("span", "btnrow");
+      var sel = document.createElement("select"); sel.style.width = "auto"; sel.style.minHeight = "34px";
+      sel.setAttribute("aria-label", "Status of " + w.title);
+      [["available", "Available"], ["sold", "Sold"], ["showcase", "Showcase only"]].forEach(function (p) {
+        var o = el("option", "", p[1]); o.value = p[0]; if (w.status === p[0]) o.selected = true; sel.appendChild(o);
+      });
+      sel.addEventListener("change", function () { db.collection("works").doc(w.id).update({ status: sel.value }).catch(function () {}); });
+      var del = el("button", "small", "Remove"); del.type = "button";
+      var armed = false;
+      del.addEventListener("click", function () {
+        if (!armed) { armed = true; del.textContent = "Tap again to remove"; setTimeout(function () { armed = false; del.textContent = "Remove"; }, 3000); return; }
+        db.collection("works").doc(w.id).delete().catch(function () {});
+      });
+      r.appendChild(sel); r.appendChild(del); li.appendChild(r); ul.appendChild(li);
+    });
+  }
+  $("addForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var err = $("addErr"); err.hidden = true;
+    var title = $("wTitle").value.trim(), files = Array.prototype.slice.call($("wFile").files || []);
+    function fail(m) { err.textContent = m; err.hidden = false; }
+    if (!files.length) return fail("Choose at least one photo of a sketch.");
+    if (files.length > 1 && title) return fail("Leave the title empty when adding several photos. Each one uses its file name, and you can rename later.");
+    if (!title && files.length === 1) return fail("Give the piece a title.");
+    if (!assets || !db) return fail("Uploads are not available in this view. Open the page while signed in as the owner.");
+    var btn = $("addBtn"); btn.disabled = true;
+    var price = parseInt($("wPrice").value, 10), likes = parseInt($("wLikes").value, 10), status = $("wStatus").value;
+    var done = 0;
+    files.reduce(function (chain, file, idx) {
+      return chain.then(function () {
+        btn.textContent = "Uploading " + (idx + 1) + " of " + files.length + "…";
+        return assets.upload(file).then(function (res) {
+          var t = title || file.name.replace(/\.[^.]+$/, "").replace(/[_-]+/g, " ").slice(0, 80) || "Untitled sketch";
+          return db.collection("works").add({
+            title: t, status: status, assetId: res.id,
+            price: price > 0 ? price : 0, likes: likes > 0 ? likes : 0, createdAt: Date.now() + idx
+          });
+        }).then(function () { done++; });
+      });
+    }, Promise.resolve()).then(function () {
+      $("addForm").reset();
+    }).catch(function (x) {
+      fail("Added " + done + " of " + files.length + ". Stopped at: " + (x && x.message ? x.message : "an upload error") + ".");
+    }).then(function () { btn.disabled = false; btn.textContent = "Add to showcase"; });
+  });
+
+  function renderSupOwn() {
+    var ul = $("supOwnList"); ul.textContent = "";
+    sups.forEach(function (s) {
+      var li = el("li"); li.appendChild(el("span", "", s.name));
+      var del = el("button", "small", "Remove"); del.type = "button"; var armed = false;
+      del.addEventListener("click", function () {
+        if (!armed) { armed = true; del.textContent = "Tap again to remove"; setTimeout(function () { armed = false; del.textContent = "Remove"; }, 3000); return; }
+        db.collection("supplies").doc(s.id).delete().catch(function () {});
+      });
+      li.appendChild(del); ul.appendChild(li);
+    });
+  }
+  $("supForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var err = $("supErr"); err.hidden = true;
+    function fail(m) { err.textContent = m; err.hidden = false; }
+    var name = $("sName").value.trim(), u = safeLink($("sLink").value.trim()), file = $("sFile").files[0];
+    if (!name) return fail("Add the product name.");
+    if (!u) return fail("Paste a full link that starts with https://");
+    if (!db) return fail("Saving is not available in this view. Open the page while signed in as the owner.");
+    var price = parseInt($("sPrice").value, 10), note = $("sNote").value.trim();
+    var btn = $("supBtn"); btn.disabled = true; btn.textContent = "Saving…";
+    var up = file && assets ? assets.upload(file).then(function (r) { return r.id; }) : Promise.resolve("");
+    up.then(function (assetId) {
+      var doc = { name: name, link: u.href, note: note, price: price > 0 ? price : 0, createdAt: Date.now() };
+      if (assetId) doc.assetId = assetId;
+      return db.collection("supplies").add(doc);
+    }).then(function () { $("supForm").reset(); })
+      .catch(function (x) { fail("Could not save" + (x && x.message ? ": " + x.message : ".")); })
+      .then(function () { btn.disabled = false; btn.textContent = "Add product"; });
+  });
+
+  function initCapabilities() {
+    var c = window.claude;
+    if (!c || !c.use) return;
+    Promise.all([c.use("db"), c.use("user"), c.use("assets")]).then(function (r) {
+      db = r[0]; user = r[1]; assets = r[2];
+      if (db) {
+        db.collection("works").orderBy("createdAt", "desc").limit(60).onSnapshot(function (snap) {
+          works = snap.docs.map(function (d) { var o = d.data() || {}; o.id = d.id; return o; })
+            .filter(function (o) { return typeof o.title === "string"; });
+          works.sort(function (a, b) { return (Number(b.likes) || 0) - (Number(a.likes) || 0) || (b.createdAt || 0) - (a.createdAt || 0); });
+          renderGallery(); if (canEdit) renderOwnerList();
+        }, function () {});
+        db.collection("supplies").orderBy("createdAt", "desc").limit(60).onSnapshot(function (snap) {
+          sups = snap.docs.map(function (d) { var o = d.data() || {}; o.id = d.id; return o; })
+            .filter(function (o) { return typeof o.name === "string" && typeof o.link === "string"; });
+          renderSupplies(); if (canEdit) renderSupOwn();
+        }, function () {});
+      }
+      try { canEdit = !!(user && user.canEdit && user.canEdit() && db); } catch (e) { canEdit = false; }
+      if (canEdit) {
+        $("owner").hidden = false; renderOwnerList(); renderSupOwn();
+        $("upStatus").textContent = assets ? "Photo uploads are ready in this view." : "Photo uploads are not available in this view, so adding a sketch photo will fail here. Send the photos in chat instead.";
+      }
+    }).catch(function () {});
+  }
+
+  /* ---------- boot ---------- */
+  $("yr").textContent = new Date().getFullYear();
+  buildShop(); updateTotal(); renderGallery(); renderSupplies(); tickClock(); renderTimer();
+  setInterval(function () { tickClock(); if (timer.running) renderTimer(); }, 1000);
+  initCapabilities();
+})();
+</script>
+
+</body></html>
