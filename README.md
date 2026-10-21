@@ -1,6 +1,6 @@
 # Skm@555 ♾️
 
-Art portfolio and shop website by **Shubham Maurya**, hand-drawn pen sketches and a daily pocket journal.
+Art portfolio and shop website by **Shubham Maurya**, hand-drawn sketches and a daily pocket journal.
 
 **Live site:** https://skmaurya05550.github.io/Skmart/
 
